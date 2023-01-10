@@ -8,21 +8,22 @@ const AuthRoute: React.FunctionComponent<PropsWithChildren> = (props) => {
     const {children} = props
     const auth = getAuth();
     const navigate = useNavigate();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loading, setLoading] = useState(false);
     
     const AuthCheck = onAuthStateChanged(auth,(user)=>{
         if(user){
             setLoading(false)
         }else{
-            console.log('unauhorized')
             navigate('/login')
+            console.log('unauthorized')
         }
     })
     useEffect(()=>{
         AuthCheck()
         return () => AuthCheck()
-    },[auth,AuthCheck])
-     if(loading) return <p>loading ...</p>
+    },[auth,AuthCheck,navigate])
+    //  if(loading) return <p>loading ...</p>
     return ( 
         <>{children}</>
      );
